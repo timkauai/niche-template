@@ -30,12 +30,9 @@ const Header = ({ siteTitle }) => {
           maxWidth: 960,
           padding: `1.45rem 1.0875rem`,
         }}
+        className="title-super-wrap"
       >
-        <h1
-          style={{
-            margin: 0,
-          }}
-        >
+        <h1 className="title-wrap">
           <Link
             to="/"
             className="title"
@@ -44,8 +41,11 @@ const Header = ({ siteTitle }) => {
               textDecoration: `none`,
             }}
           >
-            <Img className="logo" fluid={data.logo.childImageSharp.fluid} />
-            The Surfers Blog{" "}
+            <Img
+              className="title-logo"
+              fluid={data.logo.childImageSharp.fluid}
+            />
+            <h1 className="title-text">The Surfers Blog</h1>
           </Link>{" "}
         </h1>{" "}
       </div>{" "}

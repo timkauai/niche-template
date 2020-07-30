@@ -6,7 +6,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 
-import "../styles/styles.css"
+import "../styles/styles.scss"
 
 const Keyword1 = () => {
   const data = useStaticQuery(graphql`
@@ -43,6 +43,7 @@ const Keyword1 = () => {
         <Link to="/keyword-pages/keyword6/"> keyword6 </Link>{" "}
       </div>{" "}
       <hr className="horiz-line" />
+      <h3 className="centered">keyword1</h3>
       <div className="large above-fold">
         <Img
           className="large-img"

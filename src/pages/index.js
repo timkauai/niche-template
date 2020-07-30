@@ -1,15 +1,18 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
+import styled from "styled-components"
 
-import "./styles/styles.css"
+import "./styles/styles.scss"
+
+const className = "large"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
-    query Image {
+    query ImagesAndMarkdown {
       imgthree: file(relativePath: { eq: "Surf-3.jpg" }) {
         id
         childImageSharp {
@@ -26,27 +29,76 @@ const IndexPage = () => {
           }
         }
       }
+      keys: allMarkdownRemark(
+        filter: { frontmatter: { post: { eq: "false" } } }
+      ) {
+        nodes {
+          frontmatter {
+            keyword1
+            keyword2
+            keyword3
+            keyword4
+            keyword5
+            keyword6
+            editorschoice1
+            editorschoice2
+            poppost1
+            poppost2
+            poppost3
+          }
+        }
+      }
     }
   `)
-  console.log(data)
+
+  const MobileNav = styled.nav`
+    transform: ${({ nav }) => (nav ? "translateX(0)" : "translateX(100%)")};
+  `
+  const [nav, useNav] = useState(false)
   return (
     <Layout>
       <SEO title="Home" />
       <hr className="horiz-line" />
       <div className="keywords">
+        <Link to="/keyword-pages/keyword1/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword1}{" "}
+        </Link>
+        <Link to="/keyword-pages/keyword2/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword2}{" "}
+        </Link>
+        <Link to="/keyword-pages/keyword3/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword3}{" "}
+        </Link>
+        <Link to="/keyword-pages/keyword4/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword4}{" "}
+        </Link>
+        <Link to="/keyword-pages/keyword5/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword5}{" "}
+        </Link>
+        <Link to="/keyword-pages/keyword6/">
+          {" "}
+          {data.keys.nodes[0].frontmatter.keyword6}{" "}
+        </Link>
+        <a class="icon">
+          <div className="icon-burger"></div>
+        </a>
+      </div>
+      <MobileNav className="mobile-nav" nav={nav}>
         <Link to="/keyword-pages/keyword1/"> keyword1 </Link>
         <Link to="/keyword-pages/keyword2/"> keyword2 </Link>
         <Link to="/keyword-pages/keyword3/"> keyword3 </Link>
         <Link to="/keyword-pages/keyword4/"> keyword4 </Link>
         <Link to="/keyword-pages/keyword5/"> keyword5 </Link>
         <Link to="/keyword-pages/keyword6/"> keyword6 </Link>
-      </div>
+      </MobileNav>
       <hr className="horiz-line" />
       <div className="large above-fold">
-        <Img
-          className="large-img"
-          fluid={data.imgthree.childImageSharp.fluid}
-        />
+        <div className="featured-large-img"></div>
         <div className="large-padding">
           <div className="titleing">
             <h1 className="article-title">Article Title</h1>
@@ -93,16 +145,20 @@ const IndexPage = () => {
       </div>
       <div className="socials-banner">
         <div className="vl">
-          <h3>newsletter</h3>
-          <p>enter your email to subscribe to our monthly newsletter</p>
-          <form action="">
+          <h3 className="center">newsletter</h3>
+          <p className="center">
+            enter your email to subscribe to our monthly newsletter
+          </p>
+          <form className="newsletter-form" action="">
             <input type="text" />
           </form>
         </div>
         <div>
           <h3>go check us out</h3>
           <div>
-            <div></div>
+            <a href="https://instagram.com/thesurfersblog">
+              <div className="superman"></div>
+            </a>
             <div></div>
             <div></div>
             <div></div>
@@ -112,10 +168,8 @@ const IndexPage = () => {
       <div className="margin-top">
         <h3 className="latest-title">keyword</h3>
         <div className="large">
-          <Img
-            className="large-img"
-            fluid={data.imgtwo.childImageSharp.fluid}
-          />
+          {" "}
+          <div className="featured-large-img"></div>
           <div className="large-padding">
             <div className="titleing">
               <h1>Article Title</h1>
@@ -163,7 +217,7 @@ const IndexPage = () => {
         <p className="centered">a place for our sickest videos</p>
         <div className="med">
           {" "}
-          <Img className="med-img" fluid={data.imgtwo.childImageSharp.fluid} />
+          <div className="div-med-img"></div>
           <div className="titleing">
             <h1>Article Title</h1>
             <h3>keyword • keyword</h3>
@@ -173,7 +227,7 @@ const IndexPage = () => {
         </div>
         <div className="med">
           {" "}
-          <Img className="med-img" fluid={data.imgtwo.childImageSharp.fluid} />
+          <div className="div-med-img"></div>
           <div className="titleing">
             <h1>Article Title</h1>
             <h3>keyword • keyword</h3>
@@ -183,7 +237,7 @@ const IndexPage = () => {
         </div>
         <div className="med">
           {" "}
-          <Img className="med-img" fluid={data.imgtwo.childImageSharp.fluid} />
+          <div className="div-med-img"></div>
           <div className="titleing">
             <h1>Article Title</h1>
             <h3>keyword • keyword</h3>
@@ -199,31 +253,22 @@ const IndexPage = () => {
       <div className="line-of-3">
         <div className="sm">
           {" "}
-          <Img
-            className="latest-img"
-            fluid={data.imgthree.childImageSharp.fluid}
-          />
-          <h1>Article Title</h1>
+          <div className="div-sm-img"></div>
+          <h1>{data.keys.nodes[0].frontmatter.poppost1}</h1>
           <h3>keyword • keyword</h3>
           <Link to="/blog-posts/blog-post-one">read more</Link>
         </div>
         <div className="sm">
           {" "}
-          <Img
-            className="latest-img"
-            fluid={data.imgthree.childImageSharp.fluid}
-          />
-          <h1>Article Title</h1>
+          <div className="div-sm-img"></div>
+          <h1>{data.keys.nodes[0].frontmatter.poppost2}</h1>
           <h3>keyword • keyword</h3>
           <Link to="/blog-posts/blog-post-one">read more</Link>
         </div>
         <div className="sm">
           {" "}
-          <Img
-            className="latest-img"
-            fluid={data.imgthree.childImageSharp.fluid}
-          />
-          <h1>Article Title</h1>
+          <div className="div-sm-img"></div>
+          <h1>{data.keys.nodes[0].frontmatter.poppost3}</h1>
           <h3>keyword • keyword</h3>
           <Link to="/blog-posts/blog-post-one">read more</Link>
         </div>
@@ -231,13 +276,10 @@ const IndexPage = () => {
       <div>
         <h3 className="centered margin-top">editors choice</h3>
         <div className="large">
-          <Img
-            className="large-img"
-            fluid={data.imgtwo.childImageSharp.fluid}
-          />
+          <div className="featured-large-img"></div>
           <div className="large-padding">
             <div className="titleing">
-              <h1>Article Title</h1>
+              <h1>{data.keys.nodes[0].frontmatter.editorschoice1}</h1>
               <h3>keyword • keyword</h3>
             </div>
             <p>
@@ -251,13 +293,10 @@ const IndexPage = () => {
         </div>
         <div>
           <div className="large">
-            <Img
-              className="large-img"
-              fluid={data.imgtwo.childImageSharp.fluid}
-            />
+            <div className="featured-large-img"></div>
             <div className="large-padding">
               <div className="titleing">
-                <h1>Article Title</h1>
+                <h1>{data.keys.nodes[0].frontmatter.editorschoice2}</h1>
                 <h3>keyword • keyword</h3>
               </div>
               <p>
