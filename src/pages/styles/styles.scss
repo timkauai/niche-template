@@ -176,8 +176,13 @@ html {
   margin-right: -10vw;
   padding-right: 11vw;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   padding-bottom: 2.5vh;
+
+  h3 {
+    width: max-content;
+    font-size: 30px;
+  }
 }
 
 .featured-large-img {
@@ -522,6 +527,11 @@ footer div a {
 .icon-burger::after {
   transform: translateY(16px);
   display: none;
+}
+
+.social-icons {
+  float: right;
+  margin-right: 43vw;
 }
 
 //Landscape Tablet

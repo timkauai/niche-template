@@ -108,18 +108,9 @@ const IndexPage = ({ data }) => {
         </div>
       </div>
       <div className="socials-banner">
-        <div className="vl">
-          <h3 className="center">newsletter</h3>
-          <p className="center">
-            enter your email to subscribe to our monthly newsletter
-          </p>
-          <form className="newsletter-form" action="">
-            <input type="text" />
-          </form>
-        </div>
         <div>
           <h3>go check us out</h3>
-          <div>
+          <div className="social-icons">
             <a href="https://instagram.com/thesurfersblog">
               <div className="superman"></div>
             </a>
