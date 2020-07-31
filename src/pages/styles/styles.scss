@@ -433,7 +433,22 @@ footer div a {
   margin: -10px 35px -10px -30px;
 }
 
-.mobile-nav {
+.true {
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fdfcdc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(0%);
+}
+
+.false {
   z-index: 100;
   width: 100vw;
   height: 100vh;
@@ -467,6 +482,14 @@ footer div a {
   height: 0px;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: none;
+  background: #fdfcdc;
+  border: none;
+  position: absolute;
+  top: 50px;
+  left: 50px;
 }
 
 .icon-burger {
@@ -476,6 +499,7 @@ footer div a {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
   transition: all 0.5s ease-in-out;
+
 }
 
 .icon-burger::before,
@@ -502,6 +526,12 @@ footer div a {
 
 //Landscape Tablet
 @media screen and (max-width: 1200px) {
+  .icon {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: none;
+  }
+
   .large-img {
     float: none;
     width: 100%;
@@ -532,8 +562,16 @@ footer div a {
 //and
 //phones!!
 @media screen and (max-width: 800px) {
+  .icon {
+    display: block;
+  }
+
   .keywords a {
     display: none;
+  }
+
+  .title-super-wrap {
+    margin: 10% 35%;
   }
 
   .horiz-line {

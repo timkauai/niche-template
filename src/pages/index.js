@@ -1,60 +1,24 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
-import styled from "styled-components"
 
 import "./styles/styles.scss"
 
-const className = "large"
+const IndexPage = ({ data }) => {
+  const [burger, setBurger] = useState(false)
 
-const IndexPage = () => {
-  const data = useStaticQuery(graphql`
-    query ImagesAndMarkdown {
-      imgthree: file(relativePath: { eq: "Surf-3.jpg" }) {
-        id
-        childImageSharp {
-          fluid(quality: 100) {
-            ...GatsbyImageSharpFluid_noBase64
-          }
-        }
-      }
-      imgtwo: file(relativePath: { eq: "Surf-21.jpg" }) {
-        id
-        childImageSharp {
-          fluid(quality: 100) {
-            ...GatsbyImageSharpFluid_noBase64
-          }
-        }
-      }
-      keys: allMarkdownRemark(
-        filter: { frontmatter: { post: { eq: "false" } } }
-      ) {
-        nodes {
-          frontmatter {
-            keyword1
-            keyword2
-            keyword3
-            keyword4
-            keyword5
-            keyword6
-            editorschoice1
-            editorschoice2
-            poppost1
-            poppost2
-            poppost3
-          }
-        }
-      }
-    }
-  `)
+  useEffect(() => {
+    console.log("render")
+  })
 
-  const MobileNav = styled.nav`
-    transform: ${({ nav }) => (nav ? "translateX(0)" : "translateX(100%)")};
-  `
-  const [nav, useNav] = useState(false)
+  const openMenu = () => {
+    setBurger(!burger)
+    console.log(burger)
+  }
+
   return (
     <Layout>
       <SEO title="Home" />
@@ -84,18 +48,18 @@ const IndexPage = () => {
           {" "}
           {data.keys.nodes[0].frontmatter.keyword6}{" "}
         </Link>
-        <a class="icon">
+        <button class="icon" onClick={() => openMenu()}>
           <div className="icon-burger"></div>
-        </a>
+        </button>
       </div>
-      <MobileNav className="mobile-nav" nav={nav}>
-        <Link to="/keyword-pages/keyword1/"> keyword1 </Link>
+      <div className={burger.toString()}>
+        <Link to="/keyword-pages/keyword1/"> {burger.toString()} </Link>
         <Link to="/keyword-pages/keyword2/"> keyword2 </Link>
         <Link to="/keyword-pages/keyword3/"> keyword3 </Link>
         <Link to="/keyword-pages/keyword4/"> keyword4 </Link>
         <Link to="/keyword-pages/keyword5/"> keyword5 </Link>
         <Link to="/keyword-pages/keyword6/"> keyword6 </Link>
-      </MobileNav>
+      </div>
       <hr className="horiz-line" />
       <div className="large above-fold">
         <div className="featured-large-img"></div>
@@ -328,3 +292,43 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+export const data = graphql`
+  query ImagesAndMarkdown {
+    imgthree: file(relativePath: { eq: "Surf-3.jpg" }) {
+      id
+      childImageSharp {
+        fluid(quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    imgtwo: file(relativePath: { eq: "Surf-21.jpg" }) {
+      id
+      childImageSharp {
+        fluid(quality: 100) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
+    }
+    keys: allMarkdownRemark(
+      filter: { frontmatter: { post: { eq: "false" } } }
+    ) {
+      nodes {
+        frontmatter {
+          keyword1
+          keyword2
+          keyword3
+          keyword4
+          keyword5
+          keyword6
+          editorschoice1
+          editorschoice2
+          poppost1
+          poppost2
+          poppost3
+        }
+      }
+    }
+  }
+`
